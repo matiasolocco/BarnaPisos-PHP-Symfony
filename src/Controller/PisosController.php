@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 class PisosController extends AbstractController{
-    #[Route('/pisos')] 
+    #[Route('/piso')] 
     public function getPisos(){
         $piso = [
             'description' => 'Luminoso piso en Passeig de Sant Gervasi',
@@ -58,6 +58,7 @@ class PisosController extends AbstractController{
                 'notes' => 'Llamanos para concertar una cita'
             ]
             ];
+            return $this->render('pisos/pisosList.html.twig', ['pisos' => $pisos]);
 
     }
 }

@@ -1,0 +1,26 @@
+{% extends "pisos/pisoBase.html.twig" %}
+
+
+{% block contenido %}
+
+<h2>Pisos en alquiler en Barcelona </h2>
+    <div class="row row-cols-1 row-cols-md-2">
+        {# PARA CADA PISO #}
+        {% for piso in pisos %}
+            <div class="col mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{piso.image}}" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">{{piso.description}}</h3>
+                        <h3 class="card-title">{{piso.price}}  €/mes</h3>
+                        <h5 class="card-text">{{ piso.includes }}  inlcuido</h5>
+                        <h5 class="card-text">{{ piso.rooms}}  hab. {{piso.size}}  m2  {{piso.floor}}</h5>
+                        <p class="card-text">{{piso.notes}}</p>
+                        <a href="#" class="btn btn-primary">Más Info</a>
+                    </div>
+                </div>
+            </div>
+         {% endfor %}
+    </div>
+
+{% endblock %}            
