@@ -1,0 +1,30 @@
+
+
+           
+ {% block contenido %}          
+           <div class="container">
+                <div class="row">
+                    <div class="col text-center"><img src="{{ piso.image}} "> </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2>{{ piso.description }}</h2>
+                        <h2>{{ piso.price }} €/mes</h2>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">{{ piso.includes }}  inlcuido</div>
+                             <div class="col"><h5>{{ piso.rooms}}  hab. {{piso.size}}  m2  {{piso.floor}}</h5></div>
+                             <p>{{piso.notes}}</p>
+
+                        </div>
+                        <div class="row">
+                            <ul>
+                             
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
+
