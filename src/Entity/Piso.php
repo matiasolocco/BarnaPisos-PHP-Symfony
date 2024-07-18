@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PisoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,17 @@ class Piso
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $notes = null;
+
+    /**
+     * @var Collection<int, Location>
+     */
+    #[ORM\ManyToMany(targetEntity: Location::class, inversedBy: 'zones')]
+    private Collection $zone;
+
+    public function __construct()
+    {
+        $this->zone = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +148,30 @@ class Piso
     public function setNotes(string $notes): static
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getZone(): Collection
+    {
+        return $this->zone;
+    }
+
+    public function addZone(Location $zone): static
+    {
+        if (!$this->zone->contains($zone)) {
+            $this->zone->add($zone);
+        }
+
+        return $this;
+    }
+
+    public function removeZone(Location $zone): static
+    {
+        $this->zone->removeElement($zone);
 
         return $this;
     }

@@ -16,7 +16,7 @@
                         <h5 class="card-text">{{ piso.includes }}  inlcuido</h5>
                         <h5 class="card-text">{{ piso.rooms}}  hab. {{piso.size}}  m2  {{piso.floor}}</h5>
                         <p class="card-text">{{piso.notes}}</p>
-                        <a href="#" class="btn btn-primary">Más Info</a>
+                        <a href="{{ path('showPiso', {'id': piso.id}) }}" class="btn btn-primary">Más Info</a>
                     </div>
                 </div>
             </div>
