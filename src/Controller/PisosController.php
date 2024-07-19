@@ -121,6 +121,10 @@ class PisosController extends AbstractController{
             $piso = $form -> getData();
             $doctrine -> persist($piso);
             $doctrine -> flush();
+
+            $this -> addFlash(type:'exito', message:'Piso cargado correctamente');
+            
+            return $this->redirectToRoute('listPisos');
        }
 
         return $this -> render('pisos/newPiso.html.twig', ['pisoForm' => $form]);
