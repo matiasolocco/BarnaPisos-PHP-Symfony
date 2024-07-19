@@ -35,4 +35,32 @@ class UserController extends AbstractController{
 
     }
 
+
+    #[Route('/new/admin', name: 'newAdmin')]
+    public function newPiso (EntityManagerInterface $doctrine, Request $request, UserPasswordHasherInterface $hasher) {
+       $form = $this -> createForm(UserType::class);
+       $form -> handleRequest($request);
+
+       if( $form -> isSubmitted() &&  $form -> isValid() ){
+            $user = $form -> getData();
+            //Encriptación
+            $originalPassword =  $user -> getPassword();
+            $scriptedPassword = $hasher -> hashPassword( $user, $originalPassword );
+            $user -> setPassword($scriptedPassword);
+
+            $user -> setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+
+            $doctrine -> persist($user);
+            $doctrine -> flush();
+
+            $this -> addFlash(type:'exito', message:'Usuario creado correctamente');
+            
+            return $this->redirectToRoute('listPisos');
+       }
+
+        return $this -> render('pisos/newPiso.html.twig', ['pisoForm' => $form]);
+        
+
+    }
+
 }

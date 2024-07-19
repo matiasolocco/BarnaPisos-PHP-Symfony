@@ -21,8 +21,11 @@
                         <h5 class="card-text">{{ piso.rooms}}  hab. {{piso.size}}  m2  {{piso.floor}}</h5>
                         <p class="card-text">{{piso.notes}}</p>
                         <a href="{{ path('showPiso', {'id': piso.id}) }}" class="btn btn-primary">Más Info</a>
+
+                        {% if is_granted('ROLE_ADMIN') %}                      
                         <a href="{{ path('editPiso', {'id': piso.id}) }}" class="btn btn-primary">Editar</a>
                         <a href="{{ path('deletePiso', {'id': piso.id}) }}" class="btn btn-danger">Eliminar</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
