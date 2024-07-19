@@ -123,11 +123,50 @@ class PisosController extends AbstractController{
             $doctrine -> flush();
 
             $this -> addFlash(type:'exito', message:'Piso cargado correctamente');
+
+            return $this->redirectToRoute('listPisos');
+       }
+
+        return $this -> render('pisos/newPiso.html.twig', ['pisoForm' => $form]);
+        
+
+    }
+
+
+    #[Route('/edit/piso/{id}', name: 'editPiso')]
+    public function editdPiso (EntityManagerInterface $doctrine, Request $request, $id) {
+
+       $repository = $doctrine -> getRepository(Piso::class);
+       $piso = $repository -> find($id);
+
+       $form = $this -> createForm(PisoType::class, $piso);
+       $form -> handleRequest($request);
+
+       if( $form -> isSubmitted() &&  $form -> isValid() ){
+            $piso = $form -> getData();
+            $doctrine -> persist($piso);
+            $doctrine -> flush();
+
+            $this -> addFlash(type:'exito', message:'Piso editado correctamente');
             
             return $this->redirectToRoute('listPisos');
        }
 
         return $this -> render('pisos/newPiso.html.twig', ['pisoForm' => $form]);
+        
+
+    }
+
+    #[Route('/delete/piso/{id}', name: 'deletePiso')]
+    public function deletePiso (EntityManagerInterface $doctrine, Request $request, $id) {
+
+       $repository = $doctrine -> getRepository(Piso::class);
+       $piso = $repository -> find($id);
+
+       $doctrine -> remove($piso);
+       $doctrine -> flush();
+
+       return $this->redirectToRoute('listPisos');
         
 
     }
