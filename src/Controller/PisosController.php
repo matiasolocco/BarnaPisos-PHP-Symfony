@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Location;
 use App\Entity\Piso;
+use App\Form\PisoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -107,4 +109,24 @@ class PisosController extends AbstractController{
         return new Response('Pisos publicados correctamente');
 
     }
+
+
+
+    #[Route('/upload/piso', name: 'uploadPiso')]
+    public function uploadPiso (EntityManagerInterface $doctrine, Request $request) {
+       $form = $this -> createForm(PisoType::class);
+       $form -> handleRequest($request);
+
+       if( $form -> isSubmitted() &&  $form -> isValid() ){
+            $piso = $form -> getData();
+            $doctrine -> persist($piso);
+            $doctrine -> flush();
+       }
+
+        return $this -> render('pisos/newPiso.html.twig', ['pisoForm' => $form]);
+        
+
+    }
+
+
 }

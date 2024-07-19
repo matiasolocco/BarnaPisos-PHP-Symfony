@@ -20,7 +20,9 @@
                         </div>
                         <div class="row">
                             <ul>
-                             
+                            {% for z in  piso.zone %}
+                             <h5>Barrio/distrito: {{z.name}}</h5>
+                             {% endfor %}
                             </ul>
                         </div>
                     </div>
